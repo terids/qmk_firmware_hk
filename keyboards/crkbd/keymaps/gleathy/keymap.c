@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_TRNS, XXXXXXX, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX,                      KC_PPLS, KC_P1, KC_P2, KC_P3, KC_PMNS, KC_PENT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_TRNS, MO(3),  KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS
+                                          KC_TRNS, KC_TRNS,  MO(3),     KC_TRNS, KC_TRNS, KC_TRNS
                                       //`--------------------------'  `--------------------------'
   ),
 
