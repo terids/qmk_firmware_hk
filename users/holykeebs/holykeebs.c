@@ -698,6 +698,25 @@ void housekeeping_task_user(void) {
         pimoroni_trackball_set_rgbw(rgb.r, rgb.g, rgb.b, 0);
     }
 #endif
+
+#if defined(GK_TRACKBALL_PURPLE) && defined(POINTING_DEVICE_DRIVER_pimoroni_trackball)
+    bool set_colour = false;
+
+    // With two trackballs, always run the animation.
+    #if defined(HK_POINTING_DEVICE_LEFT_PIMORONI) && defined(HK_POINTING_DEVICE_RIGHT_PIMORONI)
+        set_colour = true;
+    #elif defined(HK_POINTING_DEVICE_LEFT_PIMORONI)
+        set_colour = is_keyboard_left();
+    #elif defined(HK_POINTING_DEVICE_RIGHT_PIMORONI)
+        set_colour = !is_keyboard_left();
+    #else
+        #error "GK_TRACKBALL_PURPLE requires a pimoroni on either sides."
+    #endif
+
+    if (set_colour) {
+        pimoroni_trackball_set_rgbw(58, 54, 169, 0);
+    }
+#endif
 }
 
 void keyboard_post_init_user(void) {

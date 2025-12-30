@@ -593,6 +593,11 @@ ifeq ($(strip $(TRACKBALL_RGB_RAINBOW)), yes)
 	SRC += quantum/color.c
 endif
 
+ifeq ($(strip $(GK_TRACKBALL_PURPLE)), yes)
+	OPT_DEFS += -DGK_TRACKBALL_PURPLE
+	SRC += quantum/color.c
+endif
+
 print-summary: cpfirmware
 	printf "\n%s" ' _           _       _             _         ' >&2
 	printf "\n%s" '| |__   ___ | |_   _| | _____  ___| |__  ___ ' >&2
