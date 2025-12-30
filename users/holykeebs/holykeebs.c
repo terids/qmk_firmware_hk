@@ -714,7 +714,7 @@ void housekeeping_task_user(void) {
     #endif
 
     if (set_colour) {
-        static HSV colour = { .h = 191, .s = 255, .v = 255 };
+        static HSV colour = { .h = 180, .s = 255, .v = 255 };
         RGB rgb = hsv_to_rgb(colour);
         pimoroni_trackball_set_rgbw(rgb.r, rgb.g, rgb.b, 0);
     }
