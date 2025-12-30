@@ -17,9 +17,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
+#include "quantum/color.h"
+#include "quantum/quantum.h"
 #include "users/holykeebs/holykeebs.h"
+#include "drivers/sensors/pimoroni_trackball.h"
 
 #define QK_C_EEPROM QK_CLEAR_EEPROM
+
+// The hue must be normalised to 0-255
+#define BASE_HSV 0, 255, 255
+#define SYMBOLS_HSV 180, 255, 255
+#define NUMPAD_HSV 148, 255, 255
+#define SYSTEM_HSV 20, 255, 255
+#define OTHER_HSV 40, 255, 255
 
 enum layer_names {
     BASE,
@@ -78,3 +88,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                        //`----------------------------------' `----------------------------------'
   )
 };
+
+void set_trackball_colour(int h, int s, int v) {
+    HSV colour = { .h = h, .s = s, .v = v };
+    RGB rgb = hsv_to_rgb(colour);
+    pimoroni_trackball_set_rgbw(rgb.r, rgb.g, rgb.b, 0);
+}
+
+void keyboard_post_init_kb(void) {
+    set_trackball_colour(OTHER_HSV);
+}
+
+layer_state_t layer_state_set_kb(layer_state_t state) {
+    switch (get_highest_layer(state)) {
+        case BASE:
+            set_trackball_colour(BASE_HSV);
+            break;
+        case SYMBOLS:
+            set_trackball_colour(SYMBOLS_HSV);
+            break;
+        case NUMPAD:
+            set_trackball_colour(NUMPAD_HSV);
+            break;
+        case SYSTEM:
+            set_trackball_colour(SYSTEM_HSV);
+            break;
+        default:
+            set_trackball_colour(OTHER_HSV);
+            break;
+    }
+
+    return state;
+}
