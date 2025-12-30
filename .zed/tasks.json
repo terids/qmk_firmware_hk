@@ -1,0 +1,24 @@
+[
+    {
+        "label": "Build (Release)",
+        "shell": {
+            "program": "/opt/homebrew/bin/nu",
+        },
+        "command": "make",
+        "args": [
+            "crkbd/rev1:gleathy:flash",
+            "-e USER_NAME=holykeebs",
+            "-e POINTING_DEVICE=trackball",
+            "-e POINTING_DEVICE_POSITION=right",
+            "-e GK_TRACKBALL_PURPLE=yes",
+            "-e OLED=yes",
+            "-j8",
+        ],
+        "cwd": "${ZED_WORKTREE_ROOT}",
+        "allow_concurrent_runs": false,
+        "use_new_terminal": false,
+        "reveal": "no_focus",
+        "show_summary": true,
+        "show_command": true,
+    },
+]
