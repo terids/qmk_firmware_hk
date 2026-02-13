@@ -16,6 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "quantum/quantum_keycodes.h"
 #include QMK_KEYBOARD_H
 #include "quantum/color.h"
 #include "quantum/quantum.h"
@@ -48,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_TAB,    KC_COMM,    KC_O,    KC_U,    KC_L,    KC_J,                         KC_V,    KC_F,    KC_D,    KC_G,   KC_Q,  KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LGUI,    KC_I,    KC_A,    KC_E,    KC_R,    KC_W,                         KC_Y,    KC_H,    KC_T,    KC_S,    KC_N,   KC_MINS,
+      LGUI_T(KC_ESC),    KC_I,    KC_A,    KC_E,    KC_R,    KC_W,                         KC_Y,    KC_H,    KC_T,    KC_S,    KC_N,   KC_MINS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LALT,    KC_DOT,    KC_QUOT,    KC_SLSH,    KC_X,    KC_Z,                         KC_K,    KC_P, KC_M,  KC_C, KC_B,  KC_BSLS,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
