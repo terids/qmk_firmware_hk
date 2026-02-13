@@ -31,6 +31,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SYSTEM_HSV 20, 255, 255
 #define OTHER_HSV 40, 255, 255
 
+// #ifdef OLED_ENABLE
+//     #define OLED_SCREENSAVER_TIMEOUT 60000  // 1 minute (ms)
+//     #define OLED_TIMEOUT            600000  // 10 minutes (ms)
+// #endif
+
 enum layer_names {
     BASE,
     SYMBOLS,
@@ -47,20 +52,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LALT,    KC_DOT,    KC_QUOT,    KC_SLSH,    KC_X,    KC_Z,                         KC_K,    KC_P, KC_M,  KC_C, KC_B,  KC_BSLS,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LCTL, OSM(MOD_LSFT),  LT(1, KC_ESC),     MO(2), KC_SPC, KC_ENT
+                                    KC_LCTL, OSM(MOD_LSFT),  MO(SYMBOLS),     MO(NUMPAD), KC_SPC, KC_ENT
                                       //`--------------------------'  `--------------------------'
 
   ),
 
   [SYMBOLS] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      KC_TRNS,  S(KC_1), S(KC_LBRC), S(KC_RBRC), S(KC_EQL),  S(KC_GRV),      XXXXXXX,    KC_HOME,    KC_UP,    KC_END,    XXXXXXX, KC_DEL,
+      KC_TRNS,  S(KC_1), S(KC_LBRC), S(KC_RBRC), S(KC_EQL),  S(KC_GRV),      S(KC_3),    KC_HOME,    KC_UP,    KC_END,    XXXXXXX, KC_DEL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_TRNS, S(KC_6), S(KC_9), S(KC_0), KC_EQL, KC_GRV,                    S(KC_5), KC_LEFT,   KC_DOWN,KC_RIGHT, KC_SCLN, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_TRNS, RALT(KC_3), KC_LBRC, KC_RBRC, S(KC_4), S(KC_7),                S(KC_2), S(KC_SCLN), S(KC_8), KC_PGUP, KC_PGDN, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_TRNS, KC_TRNS, KC_TRNS,     MO(3), KC_TRNS, KC_TRNS
+                                          KC_TRNS, KC_TRNS, XXXXXXX,     MO(SYSTEM), KC_TRNS, KC_TRNS
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -72,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_TRNS, XXXXXXX, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX,                      KC_PPLS, KC_P1, KC_P2, KC_P3, KC_PMNS, KC_PENT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_TRNS, KC_TRNS,  MO(3),     KC_TRNS, KC_TRNS, KC_TRNS
+                                          KC_TRNS, KC_TRNS,  MO(SYSTEM),     XXXXXXX, KC_TRNS, KC_TRNS
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -84,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------------+------------+------------+-------------+------------+------------|                   |------------+------------+------------+------------+------------+------------|
           KC_LSFT,     XXXXXXX,     XXXXXXX,      XXXXXXX,     XXXXXXX, HK_D_MODE_T,                         XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,
   //|------------+------------+------------+-------------+------------+------------+--------| |--------+------------+------------+------------+------------+------------+------------|
-                                                               KC_LGUI,     _______,  KC_SPC,    KC_ENT,     _______,     KC_RALT
+                                                               KC_TRNS,     KC_TRNS,  KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS
                                                        //`----------------------------------' `----------------------------------'
   )
 };
@@ -97,6 +102,7 @@ void set_trackball_colour(int h, int s, int v) {
 
 void keyboard_post_init_kb(void) {
     set_trackball_colour(OTHER_HSV);
+    keyboard_post_init_user();
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
@@ -120,3 +126,9 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 
     return state;
 }
+
+// #ifdef OLED_ENABLE
+//     bool oled_sreensaver_active = false;
+
+
+// #endif

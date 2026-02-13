@@ -767,3 +767,49 @@ void                       eeconfig_init_user(void) {
 
     printf("eeconfig_init_user: eeprom data written\n");
 }
+
+// enum layer_names {
+//     BASE,
+//     SYMBOLS,
+//     NUMPAD,
+//     SYSTEM,
+// };
+
+// // The hue must be normalised to 0-255
+// #define BASE_HSV 0, 255, 255
+// #define SYMBOLS_HSV 180, 255, 255
+// #define NUMPAD_HSV 148, 255, 255
+// #define SYSTEM_HSV 20, 255, 255
+// #define OTHER_HSV 40, 255, 255
+
+// void set_trackball_colour(int h, int s, int v) {
+//     HSV colour = { .h = h, .s = s, .v = v };
+//     RGB rgb = hsv_to_rgb(colour);
+//     pimoroni_trackball_set_rgbw(rgb.r, rgb.g, rgb.b, 0);
+// }
+
+// void keyboard_post_init_kb(void) {
+//     set_trackball_colour(OTHER_HSV);
+// }
+
+// layer_state_t layer_state_set_kb(layer_state_t state) {
+//     switch (get_highest_layer(state)) {
+//         case BASE:
+//             set_trackball_colour(BASE_HSV);
+//             break;
+//         case SYMBOLS:
+//             set_trackball_colour(SYMBOLS_HSV);
+//             break;
+//         case NUMPAD:
+//             set_trackball_colour(NUMPAD_HSV);
+//             break;
+//         case SYSTEM:
+//             set_trackball_colour(SYSTEM_HSV);
+//             break;
+//         default:
+//             set_trackball_colour(OTHER_HSV);
+//             break;
+//     }
+
+//     return state;
+// }
