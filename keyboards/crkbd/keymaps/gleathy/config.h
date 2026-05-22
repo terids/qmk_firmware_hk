@@ -26,3 +26,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define ONESHOT_TAP_TOGGLE 10
 #define ONESHOT_TIMEOUT 1000
+#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
