@@ -1,5 +1,14 @@
 CompileFlags:
-    Add: [-Wno-unknown-attributes, -Wno-maybe-uninitialized, -Wno-unknown-warning-option, -I../qmk_firmware_hk]
+    Add:
+        [
+            -Wno-unknown-attributes,
+            -Wno-maybe-uninitialized,
+            -Wno-unknown-warning-option,
+            -I../qmk_firmware_hk,
+            -I../qmk_firmware_hk/quantum,
+            -I../qmk_firmware_hk/quantum/keymap_extras,
+            -I../qmk_firmware_hk/quantum/sequencer,
+        ]
     Remove:
         [
             -W*,
