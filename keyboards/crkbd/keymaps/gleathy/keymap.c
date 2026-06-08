@@ -53,7 +53,8 @@ enum layer_names {
 
 enum custom_keycodes {
     MACRO_PASSWORD = SAFE_RANGE,
-    MACRO_EMAIL
+    MACRO_EMAIL,
+    MACRO_ARROW,
 };
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
@@ -66,6 +67,11 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
         case MACRO_EMAIL:
             if (record->event.pressed) {
                 SEND_STRING(EMAIL);
+            }
+            break;
+        case MACRO_ARROW:
+            if (record->event.pressed) {
+                SEND_STRING("->");
             }
             break;
     }
@@ -98,9 +104,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       KC_TRNS,  S(KC_1), S(KC_LBRC), S(KC_RBRC), S(KC_EQL),  S(KC_GRV),      S(KC_3),    KC_HOME,    KC_UP,    KC_END,    XXXXXXX, KC_DEL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_TRNS, S(KC_6), S(KC_9), S(KC_0), KC_EQL, KC_GRV,                    S(KC_5), KC_LEFT,   KC_DOWN,KC_RIGHT, KC_SCLN, MACRO_EMAIL,
+      KC_TRNS, S(KC_6), S(KC_9), S(KC_0), KC_EQL, KC_GRV,                    S(KC_5), KC_LEFT,   KC_DOWN, KC_RIGHT, KC_SCLN, MACRO_EMAIL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_TRNS, RALT(KC_3), KC_LBRC, KC_RBRC, S(KC_4), S(KC_7),                S(KC_2), S(KC_SCLN), S(KC_8), KC_PGUP, KC_PGDN, XXXXXXX,
+      KC_TRNS, RALT(KC_3), KC_LBRC, KC_RBRC, S(KC_4), S(KC_7),                S(KC_2), MACRO_ARROW, S(KC_8), KC_PGUP, KC_PGDN, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_TRNS, MO(SYSTEM), KC_TRNS,     KC_TRNS, XXXXXXX, KC_TRNS
                                       //`--------------------------'  `--------------------------'
