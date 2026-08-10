@@ -16,6 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "action_util.h"
 #include "quantum/quantum_keycodes.h"
 #include QMK_KEYBOARD_H
 #include "quantum/color.h"
@@ -57,7 +58,30 @@ enum custom_keycodes {
     MACRO_ARROW,
 };
 
+#define TRACKED_MODS (MOD_MASK_SHIFT | MOD_MASK_ALT)
+
+static uint16_t held_mod_keycode = KC_NO;
+static uint8_t held_mod_bits = 0;
+
 bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
+    // This is to prevent auto-shifted keys, such as S(KC_1), from holding shift when another key is pressed before this one is released.
+    if (held_mod_keycode != KC_NO && keycode != held_mod_keycode && record->event.pressed) {
+        del_mods(held_mod_bits);
+        send_keyboard_report();
+    }
+
+    if (IS_QK_MODS(keycode)) {
+        uint8_t mods = QK_MODS_GET_MODS(keycode);
+        if (mods & TRACKED_MODS) {
+            if (record->event.pressed) {
+                held_mod_keycode = keycode;
+                held_mod_bits = mods;
+            } else if (keycode == held_mod_keycode) {
+                held_mod_keycode = KC_NO;
+            }
+        }
+    }
+
     switch (keycode) {
         case MACRO_PASSWORD:
             if (record->event.pressed) {
@@ -75,7 +99,15 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
             }
             break;
     }
+
     return true;
+}
+
+void post_process_record_keymap(uint16_t keycode, keyrecord_t* record) {
+    if (held_mod_keycode != KC_NO && keycode != held_mod_keycode && record->event.pressed) {
+        add_mods(held_mod_bits);
+        send_keyboard_report();
+    }
 }
 
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t* record) {
@@ -173,5 +205,14 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 // #ifdef OLED_ENABLE
 //     bool oled_sreensaver_active = false;
 
+// Disable trackball movement to prevent it waking the OLED
+report_mouse_t pointing_device_task_keymap(report_mouse_t mouse_report) {
+    mouse_report.x = 0;
+    mouse_report.y = 0;
+    mouse_report.h = 0;
+    mouse_report.v = 0;
+    mouse_report.buttons = 0;
+    return mouse_report;
+}
 
 // #endif
